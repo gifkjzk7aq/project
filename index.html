@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#12372e">
+  <meta name="description" content="南京审计大学校园共享雨伞管理系统 —— 雨天借还、伞点分布、文明公约与运营管理。">
+  <title>南审晴雨 · 校园共享雨伞</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2312372e'/%3E%3Cpath d='M12 33a20 20 0 0 1 40 0H12Z' fill='%23e8b25c'/%3E%3Cpath d='M32 33v13a6 6 0 0 0 12 0' fill='none' stroke='%23f7f2e6' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="booting">
+  <div class="boot-screen" id="bootScreen">
+    <div class="boot-mark">
+      <svg viewBox="0 0 52 52" aria-hidden="true">
+        <path d="M8 30a18 18 0 0 1 36 0H8Z" fill="currentColor"/>
+        <path d="M26 30v10.5a5 5 0 0 0 10 0" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        <circle cx="40" cy="11" r="2.2" fill="#e8b25c"/>
+      </svg>
+    </div>
+    <strong>南审晴雨</strong>
+    <span>正在连接校园伞网数据库…</span>
+    <i class="boot-line"></i>
+  </div>
+  <div class="login-root" id="loginRoot" hidden></div>
+  <svg class="svg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-umbrella" viewBox="0 0 24 24"><path d="M12 3v2.2"/><path d="M3.5 13a8.5 8.5 0 0 1 17 0c-2.2-1.6-4.1-1.6-5.7 0-1.8-1.6-3.8-1.6-5.6 0-1.6-1.6-3.5-1.6-5.7 0Z"/><path d="M12 13v5.5a2.5 2.5 0 0 0 5 0"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10.7 9-7.7 9 7.7"/><path d="M5.2 9.3V21h13.6V9.3"/><path d="M9.3 21v-6.2h5.4V21"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10.2c0 5.1-8 11.3-8 11.3s-8-6.2-8-11.3a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="i-records" viewBox="0 0 24 24"><path d="M6 3h8.5L19 7.5V21H6z"/><path d="M14.5 3v4.5H19"/><path d="M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.4 5.8a5.2 5.2 0 0 0-7.4 0L12 6.9l-1.1-1.1a5.2 5.2 0 0 0-7.4 7.4L12 21l8.4-7.8a5.2 5.2 0 0 0 0-7.4Z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V11M10 20V4M16 20v-6M22 20H2"/></symbol>
+    <symbol id="i-cloud-rain" viewBox="0 0 24 24"><path d="M7 16.5a4 4 0 0 1-.4-8A5.5 5.5 0 0 1 17.4 9a3.8 3.8 0 0 1-.4 7.5"/><path d="M8 19.5 7 22M12 19.5 11 22M16 19.5 15 22"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8.5a6 6 0 0 0-12 0c0 7-2.5 7-2.5 8.5h17C20.5 15.5 18 15.5 18 8.5Z"/><path d="M9.8 20a2.4 2.4 0 0 0 4.4 0"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 4.3 4.3"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16"/><path d="m14 6 6 6-6 6"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.3l3.5 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.4 4.2L17.5 8.5l-4.1 1.4L12 14l-1.4-4.1-4.1-1.4 4.1-1.3L12 3Z"/><path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15ZM5 14l.7 1.8 1.8.7-1.8.7L5 19l-.7-1.8-1.8-.7 1.8-.7L5 14Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.8 20 6v5.5c0 5-3.4 8.5-8 9.8-4.6-1.3-8-4.8-8-9.8V6l8-3.2Z"/><path d="m8.4 11.8 2.4 2.4 4.8-5"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><path d="M7.5 12h9M12 7.5v9"/></symbol>
+    <symbol id="i-navigation" viewBox="0 0 24 24"><path d="m20.5 3.5-6.3 17-2.8-7.4-7.4-2.8 16.5-6.8Z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M4 12h16"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v4.5M12 17.2v.1"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20.2 8.2A9 9 0 1 0 21 12"/><path d="M20.2 3.5v4.7h-4.7"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 5.5 6-2.5 6 2.5 6-2.5v15l-6 2.5-6-2.5-6 2.5v-15Z"/><path d="M9 3v15M15 5.5v15"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M2.8 20a6.2 6.2 0 0 1 12.4 0"/><path d="M16 4.8a3.4 3.4 0 0 1 0 6.4M17 14a5.3 5.3 0 0 1 4.2 5.2"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20.5 3.5C11 3 4.5 7.2 4.5 14a5 5 0 0 0 5 5c6.8 0 11-6.5 11-15.5Z"/><path d="M3 21c2.5-5.2 6-8.7 11-11"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="5.5"/><path d="m8.5 13.3-1.3 7.2 4.8-2.7 4.8 2.7-1.3-7.2"/><path d="m10 8.5 1.3 1.3 2.7-2.7"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M7.5 2.8V7M16.5 2.8V7M3.5 10h17"/><path d="M8 14h.1M12 14h.1M16 14h.1M8 17.5h.1M12 17.5h.1"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10.5V17M12 7.2v.1"/></symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3z"/><path d="M15 15h2v2h-2zM19 15h2v6h-4v-2M15 19v2M11 3v3M11 9v2M3 11h3M9 11h2M7 15v3M11 21h2"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 2.8S5.5 10 5.5 14.3a6.5 6.5 0 0 0 13 0C18.5 10 12 2.8 12 2.8Z"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5.5L12 2v19M12 21h8V9l-8-3"/><path d="M7 8h2M7 12h2M7 16h2M15 11h2M15 15h2M2 21h20"/></symbol>
+    <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 8h14v6a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V8Z"/><path d="M18 9h1.5a2.5 2.5 0 0 1 0 5H18M6 3.5v1M10 3.5v1M14 3.5v1"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 5v15M21 20v-7a3 3 0 0 0-3-3h-8v10"/><path d="M3 16h18M3 12h7"/><path d="M6.5 8.5h1"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5Z"/></symbol>
+    <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H4V3h5M15 8l4 4-4 4M19 12H9"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"/><path d="M8 9h8M8 13h5"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+  </svg>
+
+  <div class="ambient" aria-hidden="true">
+    <span class="ambient-orb ambient-orb-a"></span>
+    <span class="ambient-orb ambient-orb-b"></span>
+  </div>
+
+  <div class="app" id="appShell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#home" data-route="home" aria-label="南审晴雨首页">
+        <span class="brand-mark">
+          <svg viewBox="0 0 52 52" aria-hidden="true">
+            <path d="M8 30a18 18 0 0 1 36 0H8Z" fill="currentColor"/>
+            <path d="M26 30v10.5a5 5 0 0 0 10 0" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+            <path d="M17 20.5 26 13l9 7.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".65"/>
+            <circle cx="40" cy="11" r="2.2" fill="#e8b25c"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>南审晴雨</strong>
+          <small>NAU UMBRELLA</small>
+        </span>
+      </a>
+
+      <div class="side-weather">
+        <div class="side-weather-top">
+          <span class="weather-icon"><svg class="icon"><use href="#i-cloud-rain"/></svg></span>
+          <span class="weather-now"><strong>17°</strong><small>中雨</small></span>
+          <span class="weather-live"><i></i>实时</span>
+        </div>
+        <p>浦口校区 · 雨势逐渐减弱</p>
+        <div class="weather-bars" aria-hidden="true">
+          <span style="--h:38%"></span><span style="--h:52%"></span><span style="--h:72%"></span><span style="--h:64%"></span><span style="--h:44%"></span><span style="--h:28%"></span>
+        </div>
+        <div class="weather-scale"><span>19:00</span><span>21:00</span><span>23:00</span></div>
+      </div>
+
+      <nav class="side-nav" aria-label="主导航">
+        <p class="nav-label">日常使用</p>
+        <a class="nav-item" href="#home" data-route="home">
+          <span class="nav-icon"><svg class="icon"><use href="#i-home"/></svg></span>
+          <span>总览</span>
+        </a>
+        <a class="nav-item" href="#stations" data-route="stations">
+          <span class="nav-icon"><svg class="icon"><use href="#i-pin"/></svg></span>
+          <span>校园伞点</span>
+          <span class="nav-badge" id="navStationCount">10</span>
+        </a>
+        <a class="nav-item" href="#records" data-route="records">
+          <span class="nav-icon"><svg class="icon"><use href="#i-records"/></svg></span>
+          <span>我的借还</span>
+          <span class="nav-dot" id="navLoanDot" hidden></span>
+        </a>
+        <p class="nav-label nav-label-space">校园共建</p>
+        <a class="nav-item" href="#civility" data-route="civility">
+          <span class="nav-icon"><svg class="icon"><use href="#i-heart"/></svg></span>
+          <span>文明公约</span>
+        </a>
+        <a class="nav-item nav-item-admin" href="#admin" data-route="admin">
+          <span class="nav-icon"><svg class="icon"><use href="#i-chart"/></svg></span>
+          <span>运营看板</span>
+          <span class="nav-role">运维</span>
+        </a>
+      </nav>
+
+      <div class="side-footer">
+        <div class="side-quote">
+          <svg class="icon"><use href="#i-sparkles"/></svg>
+          <p>借的是伞，<br>还的是信任。</p>
+          <span>南审文明借还计划</span>
+        </div>
+        <button class="user-card" data-action="open-identity" aria-label="切换体验身份">
+          <span class="avatar" id="sideAvatar">林</span>
+          <span class="user-meta">
+            <strong id="sideUserName">林知雨</strong>
+            <small id="sideUserRole">学生 · 2023级</small>
+          </span>
+          <svg class="icon user-chevron"><use href="#i-chevron-down"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <div class="sidebar-scrim" id="sidebarScrim" data-action="close-nav"></div>
+
+    <div class="shell">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn menu-btn" data-action="open-nav" aria-label="打开导航">
+            <svg class="icon"><use href="#i-menu"/></svg>
+          </button>
+          <div class="topbar-context">
+            <span class="live-dot"></span>
+            <span>南京审计大学 · 校园共享雨伞系统</span>
+            <span class="topbar-sep"></span>
+            <span class="topbar-date" id="topbarDate">11月2日 周一</span>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="top-weather">
+            <svg class="icon"><use href="#i-droplet"/></svg>
+            <span>中雨 17°C</span>
+          </div>
+          <button class="icon-btn top-bell" data-action="open-notifications" aria-label="查看通知">
+            <svg class="icon"><use href="#i-bell"/></svg>
+            <i></i>
+          </button>
+          <button class="top-profile" data-action="open-identity" aria-label="切换身份">
+            <span class="avatar avatar-sm" id="topAvatar">林</span>
+            <span id="topUserName">林知雨</span>
+            <svg class="icon"><use href="#i-chevron-down"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <main id="app" tabindex="-1"></main>
+
+      <footer class="site-footer">
+        <span>南京审计大学 · 后勤保障处</span>
+        <span class="footer-motto">诚信 · 求是 · 笃学 · 致公</span>
+        <span>校园共享雨伞服务</span>
+      </footer>
+    </div>
+  </div>
+
+  <div class="mobile-dock" aria-label="快捷导航">
+    <a href="#home" data-route="home" class="dock-item"><svg class="icon"><use href="#i-home"/></svg><span>总览</span></a>
+    <a href="#stations" data-route="stations" class="dock-item"><svg class="icon"><use href="#i-pin"/></svg><span>伞点</span></a>
+    <button class="dock-borrow" data-action="open-borrow" aria-label="借伞"><svg class="icon"><use href="#i-umbrella"/></svg></button>
+    <a href="#records" data-route="records" class="dock-item"><svg class="icon"><use href="#i-records"/></svg><span>借还</span></a>
+    <button class="dock-item" data-action="open-identity"><svg class="icon"><use href="#i-users"/></svg><span>我的</span></button>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <noscript>
+    <div class="noscript">请启用 JavaScript 以使用南审晴雨校园共享雨伞系统。</div>
+  </noscript>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
