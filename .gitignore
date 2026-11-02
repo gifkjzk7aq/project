@@ -1,0 +1,24 @@
+# 运行时数据库（首次启动自动创建）
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/*.db-journal
+
+# 依赖与日志
+node_modules/
+*.log
+.env
+.env.*
+
+# 测试与本地临时文件
+audit/
+audit-db/
+*-check.png
+ui-test.js
+db-ui-test.js
+capture.js
+inspect-mobile.js
+
+# 系统文件
+.DS_Store
+Thumbs.db
